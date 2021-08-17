@@ -5,7 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './lancamentos-pesquisa.component.html',
   styleUrls: ['./lancamentos-pesquisa.component.css']
 })
-export class LancamentosPesquisaComponent {
+export class LancamentosPesquisaComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 
   lancamentos = [
     {
