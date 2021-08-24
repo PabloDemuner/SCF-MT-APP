@@ -13,3 +13,7 @@ label {
     width: 90%;
     margin: 0 auto;
 }
+
+.p-button {
+    margin-right: .25em
+  }
