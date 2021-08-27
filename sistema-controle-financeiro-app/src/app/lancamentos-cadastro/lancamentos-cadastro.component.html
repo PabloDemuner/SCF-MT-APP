@@ -28,7 +28,8 @@
             </div>
             <div class="col-4 p-md-3 p-fluid">
                 <label>Valor</label>
-                <input pInputText type="text" placeholder="0,00">
+                <input pInputText type="text" currencyMask [options]="{
+                     prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }"/>
             </div>
             <div class="col-6 md-6 p-fluid">
                 <label>Categoria</label>
