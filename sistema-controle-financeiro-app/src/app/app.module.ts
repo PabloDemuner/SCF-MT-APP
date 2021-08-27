@@ -10,6 +10,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgxCurrencyModule } from "ngx-currency";
+
 import { AppComponent } from './app.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -37,6 +39,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     CalendarModule,
     SelectButtonModule,
     DropdownModule,
+    NgxCurrencyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
