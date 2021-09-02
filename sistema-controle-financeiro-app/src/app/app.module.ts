@@ -5,9 +5,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import {TooltipModule} from 'primeng/tooltip';
-import { BrowserModule } from '@angular/platform-browser';
+import {InputMaskModule} from 'primeng/inputmask';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
+
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgxCurrencyModule } from "ngx-currency";
@@ -18,6 +20,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
 import { LancamentosCadastroComponent } from './lancamentos-cadastro/lancamentos-cadastro.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,11 +29,14 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     LancamentosPesquisaComponent,
     NavbarComponent,
     PessoaPesquisaComponent,
-    LancamentosCadastroComponent
+    LancamentosCadastroComponent,
+    PessoaCadastroComponent
   ],
   imports: [
     BrowserModule, 
     TabViewModule,
+    FormsModule,
+    
     InputTextModule,
     ButtonModule,
     TableModule,
@@ -39,7 +46,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     CalendarModule,
     SelectButtonModule,
     DropdownModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
+    InputMaskModule
   ],
   providers: [],
   bootstrap: [AppComponent]
