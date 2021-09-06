@@ -22,6 +22,7 @@ import { LancamentosCadastroComponent } from './lancamentos-cadastro/lancamentos
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { FormsModule } from '@angular/forms';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +31,14 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     PessoaPesquisaComponent,
     LancamentosCadastroComponent,
-    PessoaCadastroComponent
+    PessoaCadastroComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule, 
     TabViewModule,
     FormsModule,
-    
+
     InputTextModule,
     ButtonModule,
     TableModule,
