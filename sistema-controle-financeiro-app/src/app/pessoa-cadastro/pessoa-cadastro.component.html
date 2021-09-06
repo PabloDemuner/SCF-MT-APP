@@ -8,17 +8,29 @@
 
             <div class="col-12 p-fluid">
                 <label>Nome</label>
-                <input pInputText type="text">
+                <input pInputText type="text" name="nome" ngModel
+                #nome="ngModel" required minlength="3">
+
+                <app-messages [control]="nome" error="required"
+                text="Informe o nome"></app-messages>
             </div>
 
             <div class="col-9 p-fluid">
                 <label>Logradouro</label>
-                <input pInputText type="text">
+                <input pInputText type="text" name="logradouro" ngModel
+                #logradouro="ngModel" required minlength="3">
+
+                <app-messages [control]="logradouro" error="required"
+                text="Informe o logradouro"></app-messages>
             </div>
 
             <div class="col-3 p-fluid">
                 <label>Número</label>
-                <input pInputText type="text">
+                <input pInputText type="text" name="numero" ngModel
+                #numero="ngModel" required minlength="1">
+
+                <app-messages [control]="numero" error="required"
+                text="Informe o numero"></app-messages>
             </div>
 
             <div class="col-4 p-fluid">
@@ -28,22 +40,38 @@
 
             <div class="col-4 p-fluid">
                 <label>Bairro</label>
-                <input pInputText type="text">
+                <input pInputText type="text" name="bairro" ngModel
+                #bairro="ngModel" required minlength="3">
+
+                <app-messages [control]="bairro" error="required"
+                text="Informe o bairro"></app-messages>
             </div>
 
             <div class="col-4 p-fluid">
                 <label>CEP</label>
-                <p-inputMask mask="99.999-999"></p-inputMask>
+                <p-inputMask mask="99.999-999" name="cep" ngModel
+                #cep="ngModel" required minlength="8"></p-inputMask>
+
+                <app-messages [control]="cep" error="required"
+                text="Informe o cep"></app-messages>
             </div>
 
             <div class="col-6 p-fluid">
                 <label>Cidade</label>
-                <input pInputText type="text">
+                <input pInputText type="text" name="cidade" ngModel
+                #cidade="ngModel" required minlength="3">
+
+                <app-messages [control]="cidade" error="required"
+                text="Informe a cidade"></app-messages>
             </div>
 
             <div class="col-6 p-fluid">
                 <label>Estado</label>
-                <input pInputText type="text">
+                <input pInputText type="text" name="cidade" ngModel
+                #cidade="ngModel" required minlength="3">
+
+                <app-messages [control]="cidade" error="required"
+                text="Informe a cidade"></app-messages>
             </div>
 
             <div class="col-12">

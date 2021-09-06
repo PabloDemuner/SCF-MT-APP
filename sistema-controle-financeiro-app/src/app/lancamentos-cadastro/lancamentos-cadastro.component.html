@@ -1,5 +1,5 @@
 <div class="container">
-    <form>
+    <form autocomplete="off">
 
         <div class="grid">
             <div class="col-12">
@@ -12,9 +12,12 @@
 
             <div class="col-4 md-3 p-fluid">
                 <label>Vencimento</label>
-                <p-calendar 
-                dateFormat="dd/mm/yy" [readonlyInput]="false" [showIcon]="true">
+                <p-calendar dateFormat="dd/mm/yy" [readonlyInput]="false" [showIcon]="true"
+                name="vencimento" ngModel #vencimento="ngModel" required>
                 </p-calendar>
+
+               <app-messages [control]="vencimento" error="required"
+               text="Informe a data de vencimento"></app-messages>
             </div>
             <div class="col-4 p-md-3 p-fluid">
                 <label>{{ tipoDespesas.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
@@ -24,20 +27,24 @@
             </div>
             <div class="col-8 p-md-9 p-fluid">
                 <label>Descrição</label>
-                <input pInputText type="text">
+                <input pInputText type="text" name="descricao" ngModel
+                #descricao="ngModel" required minlength="3">
+
+               <app-messages [control]="descricao" error="required"
+               text="Informe a descrição"></app-messages>
             </div>
             <div class="col-4 p-md-3 p-fluid">
                 <label>Valor</label>
-                <input pInputText type="text" currencyMask [options]="{
+                <input pInputText type="text" name="valor" required ngModel currencyMask [options]="{
                      prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }"/>
             </div>
             <div class="col-6 md-6 p-fluid">
                 <label>Categoria</label>
-                <p-dropdown [options]="categorias" placeholder="Selecione" #categoria [filter]="true"></p-dropdown>
+                <p-dropdown [options]="categorias" placeholder="Selecione" #categoria [filter]="true" required></p-dropdown>
             </div>
             <div class="col-6 p-md-6 p-fluid">
                 <label>Pessoa</label>
-                <p-dropdown [options]="pessoas" placeholder="Selecione" #pessoa [filter]="true"></p-dropdown>
+                <p-dropdown [options]="pessoas" placeholder="Selecione" #pessoa [filter]="true" required></p-dropdown>
             </div>
             <div class="col-12 p-fluid">
                 <label>Observação</label>
