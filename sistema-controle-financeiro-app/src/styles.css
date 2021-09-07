@@ -13,3 +13,16 @@ label {
     width: 90%;
     margin: 0 auto;
 }
+
+.p-button {
+    margin-right: .25em
+  }
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    text-decoration: underline;
+}
