@@ -23,6 +23,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { FormsModule } from '@angular/forms';
 import { MessagesComponent } from './messages/messages.component';
+import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
+import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { MessagesComponent } from './messages/messages.component';
     LancamentosCadastroComponent,
     PessoaCadastroComponent,
     MessagesComponent,
+    LancamentosGridComponent,
+    PessoasGridComponent,
   ],
   imports: [
     BrowserModule, 
