@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
+import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -7,39 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
-  constructor() { }
+  filtro = new LancamentoFiltro();
+  lancamentos = [];
+  totalRegistros = 0;
 
-  ngOnInit(): void {
+  constructor(
+    private lancamentoService: LancamentoService
+  ) { }
+
+  ngOnInit() {}
+
+  pesquisar(pagina = 0) {
+    this.filtro.pagina = pagina;
+    this.lancamentoService.pesquisar(this.filtro)
+      .then(resultado => {
+        this.totalRegistros = resultado.total;
+        this.lancamentos = resultado.lancamentos;
+      });
   }
 
-  lancamentos = [
-    {
-      tipo: 'DESPESA', descricao: 'Compra de pão', dataVencimento: new Date(2021, 6, 30),
-      dataPagamento: null, valor: 4.55, pessoa: 'Padaria do José'
-    },
-    {
-      tipo: 'RECEITA', descricao: 'Venda de software', dataVencimento: new Date(2021, 6, 10),
-      dataPagamento: new Date(2021, 6, 9), valor: 80000, pessoa: 'Atacado Brasil'
-    },
-    {
-      tipo: 'DESPESA', descricao: 'Impostos', dataVencimento: new Date (2021, 7, 20),
-      dataPagamento: null, valor: 14312, pessoa: 'Ministério da Fazenda'
-    },
-    {
-      tipo: 'DESPESA', descricao: 'Mensalidade de escola', dataVencimento: new Date(2021, 6, 5),
-      dataPagamento:  new Date(2021, 5, 30), valor: 800, pessoa: 'Escola Abelha Rainha'
-    },
-    {
-      tipo: 'RECEITA', descricao: 'Venda de carro', dataVencimento: new Date(2021, 8, 18),
-      dataPagamento: null, valor: 55000, pessoa: 'Sebastião Souza'
-    },
-    {
-      tipo: 'DESPESA', descricao: 'Aluguel', dataVencimento: new Date(2021 , 7, 10),
-      dataPagamento: new Date(2021, 7, 9), valor: 1750, pessoa: 'Casa Nova Imóveis'
-    },
-    {
-      tipo: 'DESPESA', descricao: 'Mensalidade musculação', dataVencimento: new Date(2021, 7, 13),
-      dataPagamento: null, valor: 180, pessoa: 'Academia Top'
-    }
-  ];
+  mudarPagina(event: LazyLoadEvent) {
+    const pagina = event.first / event.rows;
+    this.pesquisar(pagina);
+  }
 }
