@@ -7,9 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LancamentosGridComponent implements OnInit {
 
-  @Input()
-  lancamentos= [];
-
+  // @Input()
+  // lancamentos= [];
+  // totalRegistros = 0;
+  
   constructor() { }
 
   ngOnInit(): void {
