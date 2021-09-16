@@ -11,7 +11,6 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 
-import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 
@@ -25,7 +24,6 @@ import { NgxCurrencyModule } from 'ngx-currency';
   declarations: [
     PessoaCadastroComponent,
     PessoaPesquisaComponent,
-    PessoasGridComponent
   ],
   imports: [
     CommonModule,
