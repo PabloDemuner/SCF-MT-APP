@@ -1,4 +1,3 @@
-import { LancamentoService } from './lancamentos/lancamento.service';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -12,6 +11,9 @@ import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
+
+import { PessoaService } from './pessoas/pessoa.service';
+import { LancamentoService } from './lancamentos/lancamento.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
 
   providers: [
-    LancamentoService
+    LancamentoService,
+    PessoaService
   ],
 
   bootstrap: [
