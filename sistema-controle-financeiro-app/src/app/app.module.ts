@@ -1,61 +1,44 @@
-import { NgModule } from '@angular/core';
-import { DropdownModule } from 'primeng/dropdown';
-import { TabViewModule } from 'primeng/tabview';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import {TooltipModule} from 'primeng/tooltip';
-import {InputMaskModule} from 'primeng/inputmask';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { CalendarModule } from 'primeng/calendar';
-
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
 
-import { NgxCurrencyModule } from "ngx-currency";
+import { TabViewModule } from 'primeng/tabview';
+
+import { CoreModule } from './core/core.module';
+import { PessoasModule } from './pessoas/pessoas.module';
+import { LancamentosModule } from './lancamentos/lancamentos.module';
 
 import { AppComponent } from './app.component';
-import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
-import { LancamentosCadastroComponent } from './lancamentos-cadastro/lancamentos-cadastro.component';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
-import { FormsModule } from '@angular/forms';
-import { MessagesComponent } from './messages/messages.component';
-import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
-import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
+
+import { HttpClientModule } from '@angular/common/http';
+
+import { PessoaService } from './pessoas/pessoa.service';
+import { LancamentoService } from './lancamentos/lancamento.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LancamentosPesquisaComponent,
-    NavbarComponent,
-    PessoaPesquisaComponent,
-    LancamentosCadastroComponent,
-    PessoaCadastroComponent,
-    MessagesComponent,
-    LancamentosGridComponent,
-    PessoasGridComponent,
   ],
+
   imports: [
     BrowserModule, 
     TabViewModule,
     FormsModule,
 
-    InputTextModule,
-    ButtonModule,
-    TableModule,
-    TooltipModule,
-    InputTextareaModule,
-    BrowserAnimationsModule,
-    CalendarModule,
-    SelectButtonModule,
-    DropdownModule,
-    NgxCurrencyModule,
-    InputMaskModule
+    LancamentosModule,
+    PessoasModule,
+    CoreModule,
+
+    HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+
+  providers: [
+    LancamentoService,
+    PessoaService
+  ],
+
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
