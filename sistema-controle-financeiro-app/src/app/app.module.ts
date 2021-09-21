@@ -3,9 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { TabViewModule } from 'primeng/tabview';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 import { CoreModule } from './core/core.module';
 import { PessoasModule } from './pessoas/pessoas.module';
@@ -24,10 +25,11 @@ import { LancamentoService } from './lancamentos/lancamento.service';
   ],
 
   imports: [
-    BrowserModule, 
+    BrowserModule,
     TabViewModule,
     FormsModule,
     ToastModule,
+    ConfirmDialogModule,
 
     LancamentosModule,
     PessoasModule,
@@ -39,7 +41,9 @@ import { LancamentoService } from './lancamentos/lancamento.service';
   providers: [
     LancamentoService,
     PessoaService,
+
     MessageService,
+    ConfirmationService
   ],
 
   bootstrap: [
