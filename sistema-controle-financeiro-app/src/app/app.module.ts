@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -43,7 +43,8 @@ import { LancamentoService } from './lancamentos/lancamento.service';
     PessoaService,
 
     MessageService,
-    ConfirmationService
+    ConfirmationService,
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
   ],
 
   bootstrap: [
