@@ -2,7 +2,10 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { ToastModule } from 'primeng/toast';
+
 import { TabViewModule } from 'primeng/tabview';
+import { MessageService } from 'primeng/api';
 
 import { CoreModule } from './core/core.module';
 import { PessoasModule } from './pessoas/pessoas.module';
@@ -24,6 +27,7 @@ import { LancamentoService } from './lancamentos/lancamento.service';
     BrowserModule, 
     TabViewModule,
     FormsModule,
+    ToastModule,
 
     LancamentosModule,
     PessoasModule,
@@ -34,7 +38,8 @@ import { LancamentoService } from './lancamentos/lancamento.service';
 
   providers: [
     LancamentoService,
-    PessoaService
+    PessoaService,
+    MessageService,
   ],
 
   bootstrap: [
