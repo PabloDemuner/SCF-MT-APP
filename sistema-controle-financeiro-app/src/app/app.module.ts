@@ -4,13 +4,7 @@ import { NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
-import { ToastModule } from 'primeng/toast';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TabViewModule } from 'primeng/tabview';
-
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { PessoaService } from './pessoas/pessoa.service';
-import { LancamentoService } from './lancamentos/lancamento.service';
 
 import { CoreModule } from './core/core.module';
 import { PessoasModule } from './pessoas/pessoas.module';
@@ -38,8 +32,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserModule,
     TabViewModule,
     FormsModule,
-    ToastModule,
-    ConfirmDialogModule,
 
     LancamentosModule,
     PessoasModule,
@@ -57,12 +49,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
 
   providers: [
-    LancamentoService,
-    PessoaService,
-
-    MessageService,
-    ConfirmationService,
-
     TranslateService
   ],
 
