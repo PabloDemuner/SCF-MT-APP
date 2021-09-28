@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -16,10 +17,13 @@ export class LancamentosPesquisaComponent implements OnInit {
   @ViewChild('tabela') tabelaLancamentos;
 
   constructor(
-    private lancamentoService: LancamentoService
+    private lancamentoService: LancamentoService,
+    private messageService: MessageService,
+    private confirmationMessage: ConfirmationService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina;
@@ -27,7 +31,8 @@ export class LancamentosPesquisaComponent implements OnInit {
       .then(resultado => {
         this.totalRegistros = resultado.total;
         this.lancamentos = resultado.lancamentos;
-      });
+      })
+      .catch(error => this.errorHandler.handle(error));
   }
 
   mudarPagina(event: LazyLoadEvent) {
@@ -35,10 +40,26 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.pesquisar(pagina);
   }
 
+  confirmarExlusao(lancamento: any): void {
+    this.confirmationMessage.confirm({
+      message: 'Deseja realmente excluir?',
+      accept: () => {
+        this.excluir(lancamento);
+      }
+    });
+  }
+
   excluir(lancamento: any) {
     this.lancamentoService.excluir(lancamento.id)
-      .then(() => {
-        this.tabelaLancamentos.reset();
-      });
+      .subscribe(() => {
+        if (this.tabelaLancamentos.first === 0) {
+          this.pesquisar();
+        } else {
+          this.tabelaLancamentos.reset();
+        }
+        this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!' })
+      },
+        (error) => this.errorHandler.handle(error)
+      );
   }
 }

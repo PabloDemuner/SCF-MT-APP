@@ -1,11 +1,9 @@
+import { IApiResponse } from './../core/model/interfaces-gerais.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-export class LancamentoPessoaFiltro {
-  nome: string;
-  pagina = 0;
-  itensPorPagina = 5;
-}
+import { Observable } from 'rxjs';
+import { IPessoaFiltro } from './model/pessoa-filtro.model';
+import { IPessoa } from './model/pessoa.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,39 +14,34 @@ export class PessoaService {
 
   constructor(private http: HttpClient) { }
 
-  pesquisar(filtro: LancamentoPessoaFiltro): Promise<any> {
+  pesquisar(filtro: IPessoaFiltro) : Observable<IApiResponse<IPessoa>> {
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE3NTk4MzIsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6IjQ3NzA3YjgwLTNjODctNDhlMS1iZThkLTk3YzZiNDRlYmRmMyIsImNsaWVudF9pZCI6ImFuZ3VsYXIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.FgZXnkpef1HcSYV1QzhROJvOnPpwwRupnCrlBl7fof4');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzI3OTAxNDgsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6IjBmYmZjNGYyLTM3OTctNDM0NC1iYzZlLWRmY2M3MWI3YTY0OSIsImNsaWVudF9pZCI6ImFuZ3VsYXIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.GNPIdY28fP8iK-nKK0gDl-HAp6JFrSxjU6TZVNSRDN4');
 
     let params = new HttpParams()
-    params = params.set('page', filtro.pagina.toString());
-    params = params.set('size', filtro.itensPorPagina.toString());
+    .set('page', filtro.pagina.toString())
+    .set('size', filtro.itensPorPagina.toString());
 
     if (filtro.nome) {
       params = params.set('nome', filtro.nome);
     }
 
-    return this.http.get(`${this.pesquisaPessoaUrl}`, { headers, params })
-      .toPromise()
-      .then(response => {
-        const pessoas = response['content'];
-
-        const resultado = {
-          pessoas: pessoas,
-          total: response['totalElements']
-        };
-
-        return resultado;
-      })
+    return this.http.get<IApiResponse<IPessoa>>(`${this.pesquisaPessoaUrl}`, { headers, params });
+      
   }
 
 
-  listarTodas(): Promise<any> {
+  listarTodas(): Observable<IApiResponse<IPessoa>> {
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE1OTYxMDgsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6IjQwMWQ2NzAwLTdhNGItNDZiMC1hZjUzLTA4YTkwZjM2ZmJkNyIsImNsaWVudF9pZCI6ImFuZ3VsYXIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.xVXydwHwbR0CerTRx4C2bonZa65Qg7eVdGkhq5U1HFQ');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzI3OTAxNDgsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6IjBmYmZjNGYyLTM3OTctNDM0NC1iYzZlLWRmY2M3MWI3YTY0OSIsImNsaWVudF9pZCI6ImFuZ3VsYXIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.GNPIdY28fP8iK-nKK0gDl-HAp6JFrSxjU6TZVNSRDN4');
 
-    return this.http.get(this.pesquisaPessoaUrl, { headers })
-      .toPromise()
-      .then(response => response['content']);
+    return this.http.get<IApiResponse<IPessoa>>(this.pesquisaPessoaUrl, { headers });
+  }
+
+  excluir(id: number): Observable<void> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzI3OTAxNDgsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6IjBmYmZjNGYyLTM3OTctNDM0NC1iYzZlLWRmY2M3MWI3YTY0OSIsImNsaWVudF9pZCI6ImFuZ3VsYXIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.GNPIdY28fP8iK-nKK0gDl-HAp6JFrSxjU6TZVNSRDN4');
+
+      return this.http.delete<void>(`${this.pesquisaPessoaUrl}/${id}`, { headers });
   }
 }
