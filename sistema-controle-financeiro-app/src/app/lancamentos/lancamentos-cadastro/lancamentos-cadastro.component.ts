@@ -1,4 +1,4 @@
-import { Lancamento } from './../model/lamcamento-impl.model';
+import { Lancamento } from '../model/lancamento-impl.model';
 import { ILancamento } from './../model/lancamento.model';
 import { CategoriaService } from './../../categorias/categoria.service';
 import { Component, OnInit } from '@angular/core';
