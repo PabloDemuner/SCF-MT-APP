@@ -1,5 +1,4 @@
 import { ILancamento } from './lancamento.model';
-import { IEndereco } from '../../pessoas/model/endereco.model';
 import { IPessoa } from '../../pessoas/model/pessoa.model';
 export class Lancamento implements ILancamento {
     id!: number;
@@ -21,6 +20,16 @@ export class Categoria  {
 export class Pessoa implements IPessoa {
     id!: number;
     nome!: string;
-    endereco!: IEndereco;
-    ativo!: boolean;
+    endereco = new Endereco();
+    ativo = true;
+}
+
+class Endereco {
+    logradouro!: string;
+    numero!: number;
+    complemento!: string;
+    bairro!: string;
+    cep!: string;
+    cidade!: string;
+    estado!: string;
 }
