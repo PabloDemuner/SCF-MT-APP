@@ -30,14 +30,14 @@ export class PessoaPesquisaComponent implements OnInit {
 
   ngOnInit() { }
 
-  pesquisar(pagina: number = 0): void {        
+  pesquisar(pagina: number = 0): void {
     this.filtro.pagina = pagina;
-    
+
     this.pessoaService.pesquisar(this.filtro)
       .subscribe(dados => {
-          this.pessoas = dados.content
-          this.totalRegistros = dados.totalElements         
-        },
+        this.pessoas = dados.content
+        this.totalRegistros = dados.totalElements
+      },
         erro => this.errorHandler.handle(erro)
       );
   }
@@ -67,6 +67,20 @@ export class PessoaPesquisaComponent implements OnInit {
         this.messageService.add({ severity: 'success', detail: 'Pessoa excluída com sucesso!' })
       },
         (error) => this.errorHandler.handle(error)
+      );
+  }
+
+  alterarStatus(pessoa: any) {
+    const novoStatus = !pessoa.ativo;
+
+    this.pessoaService.atualizarPropriedadeAtiva(pessoa.id, novoStatus)
+      .subscribe(() => {
+        const acao = novoStatus ? 'ativa' : 'desativa';
+
+        pessoa.ativo = novoStatus;
+        this.messageService.add({ severity: 'success', detail: `Pessoa ${acao} com sucesso!` });
+      },
+        erro => this.errorHandler.handle(erro)
       );
   }
 }

@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="grid">
-        <form autocomplete="off" (ngSubmit)="pesquisar()">
+    <form autocomplete="off" (ngSubmit)="pesquisar()">
+        <div class="grid">
 
             <div class="col-12">
                 <h1>Pessoas</h1>
@@ -12,8 +12,9 @@
             <div class="col-12" style="margin-top:10px">
                 <button pButton type="submit" label="Pesquisar"></button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+
 
 
     <div class="grid">
@@ -53,7 +54,7 @@
                         <td>
                             <span class="p-column-title">Status</span>
                             <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
-                                tooltipPosition="top">
+                                tooltipPosition="top" (click)=" alterarStatus(pessoa)">
                                 {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
                             </a>
                         </td>

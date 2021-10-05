@@ -1,3 +1,4 @@
+import { ICategoria } from './../../categorias/model/categoria.model';
 import { IPessoa } from "../../pessoas/model/pessoa.model";
 
 export interface ILancamento {
@@ -7,7 +8,7 @@ export interface ILancamento {
     dataPagamento?: Date,
     valor: number,
     observacao: string,
-    tipo: 'RECEITA' | 'DESPESA',
+    tipo: string,
     pessoa: IPessoa,
-    // categoria: ICategoria
+    categoria: ICategoria
 }
