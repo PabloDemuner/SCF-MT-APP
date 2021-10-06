@@ -13,9 +13,22 @@ import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { AppComponent } from './app.component';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
+import { LancamentosCadastroComponent } from './lancamentos/lancamentos-cadastro/lancamentos-cadastro.component';
+import { PessoaPesquisaComponent } from './pessoas/pessoa-pesquisa/pessoa-pesquisa.component';
+import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
+
+const routes: Routes = [
+  { path: 'lancamentos', component: LancamentosPesquisaComponent },
+  { path: 'lancamentos/novo', component: LancamentosCadastroComponent },
+  { path: 'pessoas', component: PessoaPesquisaComponent },
+  { path: 'pessoas/nova', component: PessoaCadastroComponent }
+]
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -38,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CoreModule,
 
     HttpClientModule,
+    RouterModule.forRoot(routes),
 
     TranslateModule.forRoot({
       loader: {
