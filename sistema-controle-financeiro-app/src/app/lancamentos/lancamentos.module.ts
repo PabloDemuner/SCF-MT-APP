@@ -1,3 +1,4 @@
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +20,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { InputMaskModule } from 'primeng/inputmask';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { InputMaskModule } from 'primeng/inputmask';
   imports: [
     CommonModule,
     FormsModule,
+    LancamentosRoutingModule,
 
     SharedModule,
 
