@@ -13,6 +13,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
+import { PessoasRoutingModule } from './pessoas-routing.module';
 
 import { SharedModule } from './../shared/shared.module';
 
@@ -28,6 +29,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
   imports: [
     CommonModule,
     FormsModule,
+    PessoasRoutingModule,
 
     SharedModule,
 
