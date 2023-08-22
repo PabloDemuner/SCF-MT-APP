@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 //import 'rxjs/add/operator/toPromise';
 
 @Injectable({
@@ -7,9 +9,15 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
+  jwtPayLoad: any;
   oauthTokenUrl = 'http://localhost:8080/oauth/token';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    public jwtHelper: JwtHelperService
+    ) {
+      this.carregarToken();
+     }
 
   login(usuario: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
@@ -20,11 +28,32 @@ export class AuthService {
 
     return this.http.post(this.oauthTokenUrl, body, { headers })
       .toPromise()
-      .then(response => {
+      .then((response: any) => {
         console.log(response);
+        this.armazenarToken(response['access_token']);
       })
       .catch(response => {
-        console.log(response);
+        if (response.status === 400) {
+          if (response.error.error === 'invalid_grant') {
+            return Promise.reject('Usuário ou senha inválida!');
+          }
+        }
+
+        return Promise.reject(response);
       });
+  }
+
+  private armazenarToken(token: string) {
+    this.jwtPayLoad = this.jwtHelper.decodeToken(token);
+    console.log(this.jwtPayLoad);
+    localStorage.setItem("token", token );
+  }
+  
+  private carregarToken() {
+    const token = localStorage.getItem("token");
+
+    if(token) {
+      this.armazenarToken(token);
+    }
   }
 }

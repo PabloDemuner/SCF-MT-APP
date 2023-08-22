@@ -7,6 +7,7 @@ import { LoginHomeComponent } from './login-home/login-home.component';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
+import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,19 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
     ButtonModule,
 
-    SegurancaRoutingModule
+    SegurancaRoutingModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return '';
+        }
+      }
+    }),
   ],
-  exports: []
+  exports: [],
+  providers: [
+    JwtHelperService
+  ]
 })
 export class SegurancaModule { }
