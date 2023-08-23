@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Lancamento } from './model/lancamento-impl.model';
 import { ILancamento } from './model/lancamento.model';
 
 export class LancamentoFiltro {
@@ -26,8 +25,6 @@ export class LancamentoService {
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
 
     let params = new HttpParams();
-    const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwibm9tZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE2ODAwNjM3NDUsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6ImFkNjhjODEyLWRiYzUtNGMyOC1hMWQ1LWI2ZTIwN2NmOGFlNyIsImNsaWVudF9pZCI6ImFuZ3VsYXIifQ.WtFq-dJiYzU2CM4SSQ7gNb-akG83ksAAVbgdjcOSQlQ');
 
     params = params.set('page', filtro.pagina.toString());
     params = params.set('size', filtro.itensPorPagina.toString());
@@ -44,7 +41,7 @@ export class LancamentoService {
       params = params.set('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
+    return this.http.get(`${this.lancamentosUrl}?resumo`, { params })
       .toPromise()
       .then(response => {
         const lancamentos = response['content'];
@@ -58,32 +55,18 @@ export class LancamentoService {
   }
 
   excluir(id: number): Observable<void> {
-    const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwibm9tZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE2ODAwNjM3NDUsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6ImFkNjhjODEyLWRiYzUtNGMyOC1hMWQ1LWI2ZTIwN2NmOGFlNyIsImNsaWVudF9pZCI6ImFuZ3VsYXIifQ.WtFq-dJiYzU2CM4SSQ7gNb-akG83ksAAVbgdjcOSQlQ');
-
-    return this.http.delete<void>(`${this.lancamentosUrl}/${id}`, { headers });
+    return this.http.delete<void>(`${this.lancamentosUrl}/${id}`);
   }
 
   adicionar(lancamento: ILancamento): Observable<ILancamento> {
-    const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwibm9tZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE2ODAwNjM3NDUsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6ImFkNjhjODEyLWRiYzUtNGMyOC1hMWQ1LWI2ZTIwN2NmOGFlNyIsImNsaWVudF9pZCI6ImFuZ3VsYXIifQ.WtFq-dJiYzU2CM4SSQ7gNb-akG83ksAAVbgdjcOSQlQ')
-      .append('Content-Type', 'application/json');
-
-    return this.http.post<ILancamento>(this.lancamentosUrl, lancamento, { headers });
+    return this.http.post<ILancamento>(this.lancamentosUrl, lancamento);
   }
 
   atualizar(lancamento: ILancamento): Observable<ILancamento> {
-    const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwibm9tZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE2ODAwNjM3NDUsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6ImFkNjhjODEyLWRiYzUtNGMyOC1hMWQ1LWI2ZTIwN2NmOGFlNyIsImNsaWVudF9pZCI6ImFuZ3VsYXIifQ.WtFq-dJiYzU2CM4SSQ7gNb-akG83ksAAVbgdjcOSQlQ')
-      .append('Content-Type', 'application/json');
-
-    return this.http.put<ILancamento>(this.lancamentosUrl, lancamento, { headers });
+    return this.http.put<ILancamento>(`${this.lancamentosUrl}/${lancamento.id}`, lancamento);
   }
 
   buscaPorId(id: number): Observable<ILancamento> {
-    const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwibm9tZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE2ODAwNjM3NDUsImF1dGhvcml0aWVzIjpbIlJPTEVfQ0FEQVNUUkFSX0NBVEVHT1JJQSIsIlJPTEVfUEVTUVVJU0FSX1BFU1NPQSIsIlJPTEVfUkVNT1ZFUl9QRVNTT0EiLCJST0xFX0NBREFTVFJBUl9MQU5DQU1FTlRPIiwiUk9MRV9QRVNRVUlTQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUkVNT1ZFUl9MQU5DQU1FTlRPIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfQ0FURUdPUklBIl0sImp0aSI6ImFkNjhjODEyLWRiYzUtNGMyOC1hMWQ1LWI2ZTIwN2NmOGFlNyIsImNsaWVudF9pZCI6ImFuZ3VsYXIifQ.WtFq-dJiYzU2CM4SSQ7gNb-akG83ksAAVbgdjcOSQlQ');
-
-    return this.http.get<ILancamento>(`${this.lancamentosUrl}/${id}`, { headers });
+    return this.http.get<ILancamento>(`${this.lancamentosUrl}/${id}`);
   }
 }

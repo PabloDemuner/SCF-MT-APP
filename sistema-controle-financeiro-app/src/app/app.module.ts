@@ -22,9 +22,9 @@ import { SegurancaModule } from './seguranca/seguranca.module';
 
 registerLocaleData(localePt, 'pt-BR');
 
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+/*export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
-}
+}*/
 
 @NgModule({
   declarations: [
@@ -44,17 +44,17 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     AppRoutingModule,
 
-    TranslateModule.forRoot({
+    /*TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-      }),
+      }),*/
   ],
 
   providers: [
-    TranslateService
+    //TranslateService
   ],
 
   bootstrap: [
