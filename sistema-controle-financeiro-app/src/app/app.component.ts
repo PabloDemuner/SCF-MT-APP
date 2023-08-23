@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng/api';
 
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'scf-ui';
 
   constructor(
+    private router: Router,
     private config: PrimeNGConfig,
     private translateService: TranslateService
   ) { }
@@ -20,5 +22,9 @@ export class AppComponent implements OnInit {
     this.translateService.setDefaultLang('pt');
     this.translateService.get('primeng')
       .subscribe(res => this.config.setTranslation(res));
+  }
+
+  exibindoNavbar() {
+    return this.router.url !== '/login';
   }
 }
