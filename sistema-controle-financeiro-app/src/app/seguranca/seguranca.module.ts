@@ -8,6 +8,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { SegurancaRoutingModule } from './seguranca-routing.module';
 import { LoginHomeComponent } from './login-home/login-home.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { ServiceHttpInterceptor } from './service-http-interceptor';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -37,6 +40,11 @@ export function tokenGetter(): string {
   exports: [],
   providers: [
     JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServiceHttpInterceptor,
+      multi: true
+    }
   ]
 })
 export class SegurancaModule { }

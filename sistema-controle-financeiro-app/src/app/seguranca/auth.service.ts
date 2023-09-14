@@ -15,9 +15,9 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     public jwtHelper: JwtHelperService
-    ) {
-      this.carregarToken();
-     }
+  ) {
+    this.carregarToken();
+  }
 
   login(usuario: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
@@ -26,7 +26,7 @@ export class AuthService {
 
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
 
-    return this.http.post(this.oauthTokenUrl, body, { headers })
+    return this.http.post(this.oauthTokenUrl, body, { headers, withCredentials: true })
       .toPromise()
       .then((response: any) => {
         console.log(response);
@@ -46,14 +46,40 @@ export class AuthService {
   private armazenarToken(token: string) {
     this.jwtPayLoad = this.jwtHelper.decodeToken(token);
     console.log(this.jwtPayLoad);
-    localStorage.setItem("token", token );
+    localStorage.setItem("token", token);
   }
-  
+
   private carregarToken() {
     const token = localStorage.getItem("token");
 
-    if(token) {
+    if (token) {
       this.armazenarToken(token);
     }
+  }
+
+  obterNovoAccessToken(): Promise<void> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+
+    const body = 'grant_type=refresh_token';
+
+    return this.http.post(this.oauthTokenUrl, body, { headers, withCredentials: true })
+      .toPromise()
+      .then((response: any) => {
+        console.log(response);
+        this.armazenarToken(response['access_token']);
+        console.log('Access Token criado!');
+        return Promise.resolve(null);
+      })
+      .catch(response => {
+        alert(`Erro ao tentar criar o Access Token! ${JSON.stringify(response)}`);
+        return Promise.resolve(null);
+      })
+  }
+
+  isAccessTokenInvalido() {
+    const token = localStorage.getItem('token');
+    return !token || this.jwtHelper.isTokenExpired(token);
   }
 }
