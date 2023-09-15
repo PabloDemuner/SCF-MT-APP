@@ -75,6 +75,7 @@
               <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
                 [routerLink]="['/lancamentos', lancamento.id]"></a>
               <button class="espaco-icones" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+                [disabled]="!authService.temPermissao('ROLE_REMOVER_LANCAMENTO')"
                 (click)="confirmarExlusao(lancamento)"></button>
             </td>
           </tr>

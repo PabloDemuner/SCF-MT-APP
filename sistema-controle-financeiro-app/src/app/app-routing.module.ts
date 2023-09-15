@@ -21,11 +21,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { PessoaPesquisaComponent } from './pessoas/pessoa-pesquisa/pessoa-pesquisa.component';
 import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
+import { PaginaNaoAutorizadaComponent } from './core/pagina-nao-autorizada.component';
 
 
 const routes: Routes = [
     { path: 'pessoas', component: PessoaPesquisaComponent },
     { path: 'pessoas/nova', component: PessoaCadastroComponent },
+    { path: 'pagina-nao-autorizada', component: PaginaNaoAutorizadaComponent },
     { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
     { path: '**', redirectTo: 'pagina-nao-encontrada' }
   ]

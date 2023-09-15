@@ -82,4 +82,18 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !token || this.jwtHelper.isTokenExpired(token);
   }
+
+  temPermissao(permissao: string) {
+    return this.jwtPayLoad && this.jwtPayLoad.authorities.includes(permissao);
+  }
+
+  temPermissoes(roles) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+
+      return false;
+    }
+  }
 }

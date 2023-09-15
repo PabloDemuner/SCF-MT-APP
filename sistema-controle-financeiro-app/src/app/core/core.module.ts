@@ -12,11 +12,13 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { PaginaNaoAutorizadaComponent } from './pagina-nao-autorizada.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    PaginaNaoEncontradaComponent
+    PaginaNaoEncontradaComponent,
+    PaginaNaoAutorizadaComponent
   ],
   imports: [
     CommonModule,

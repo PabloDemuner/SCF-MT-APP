@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { SegurancaRoutingModule } from './seguranca-routing.module';
+import { AuthGuard } from './auth.guard';
 import { LoginHomeComponent } from './login-home/login-home.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -44,7 +45,8 @@ export function tokenGetter(): string {
       provide: HTTP_INTERCEPTORS,
       useClass: ServiceHttpInterceptor,
       multi: true
-    }
+    },
+    AuthGuard
   ]
 })
 export class SegurancaModule { }
