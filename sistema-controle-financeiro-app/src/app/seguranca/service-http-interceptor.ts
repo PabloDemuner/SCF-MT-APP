@@ -5,6 +5,8 @@ import { Observable, from } from "rxjs";
 import { Injectable } from "@angular/core";
 import { mergeMap } from 'rxjs/operators';
 
+export class NotAuthenticatedError { }
+
 @Injectable()
 export class ServiceHttpInterceptor implements HttpInterceptor {
 
@@ -15,6 +17,10 @@ export class ServiceHttpInterceptor implements HttpInterceptor {
             return from(this.auth.obterNovoAccessToken())
                 .pipe(
                     mergeMap(() => {
+                        if (this.auth.isAccessTokenInvalido()) {
+                            throw new NotAuthenticatedError();
+                        }
+
                         req = req.clone({
                             setHeaders: {
                                 Authorization: `Bearer ${localStorage.getItem('token')}`
