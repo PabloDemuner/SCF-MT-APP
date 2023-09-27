@@ -11,6 +11,7 @@ export class AuthService {
 
   jwtPayLoad: any;
   oauthTokenUrl = 'http://localhost:8080/oauth/token';
+  tokensRevokeUrl = 'http://localhost:8080/tokens/revoke';
 
   constructor(
     private http: HttpClient,
@@ -73,7 +74,8 @@ export class AuthService {
         return Promise.resolve(null);
       })
       .catch(response => {
-        alert(`Erro ao tentar criar o Access Token! ${JSON.stringify(response)}`);
+        //alert(`Erro ao tentar criar o Access Token! ${JSON.stringify(response)}`);
+        console.error('Erro ao renovar token.', response);
         return Promise.resolve(null);
       })
   }
@@ -95,5 +97,18 @@ export class AuthService {
 
       return false;
     }
+  }
+
+  logout() {
+    return this.http.delete(this.tokensRevokeUrl, {withCredentials: true})
+    .toPromise()
+    .then(() => {
+      this.removeAccessToken();
+    })
+  }
+
+  removeAccessToken() {
+    localStorage.removeItem('token');
+    this.jwtPayLoad = null;
   }
 }
