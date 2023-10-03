@@ -25,8 +25,7 @@ import { PaginaNaoAutorizadaComponent } from './core/pagina-nao-autorizada.compo
 
 
 const routes: Routes = [
-    { path: 'pessoas', component: PessoaPesquisaComponent },
-    { path: 'pessoas/nova', component: PessoaCadastroComponent },
+    { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
     { path: 'pagina-nao-autorizada', component: PaginaNaoAutorizadaComponent },
     { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
     { path: '**', redirectTo: 'pagina-nao-encontrada' }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl , AbstractControl} from '@angular/forms';
 
 // Componente de mensagens de erros
 
@@ -26,11 +26,11 @@ export class MessagesComponent implements OnInit {
   }
 
   @Input() text: string;
-  @Input() control: FormControl;
+  @Input() control?: AbstractControl | FormControl | null;
   @Input() error: string;
 
   temError(): boolean {
-    return this.control.hasError(this.error) && this.control.dirty;
+    return this.control ? this.control.hasError(this.error) && this.control.dirty : true;
   }
 
 }

@@ -7,7 +7,7 @@ import { IPessoa } from 'src/app/pessoas/model/pessoa.model';
 import { Lancamento } from '../model/lancamento-impl.model';
 import { ILancamento } from './../model/lancamento.model';
 
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,7 +29,9 @@ export class LancamentosCadastroComponent implements OnInit {
 
   pessoas = [];
 
-  lancamento: ILancamento = new Lancamento();
+  //lancamento: ILancamento = new Lancamento();
+
+  form!: FormGroup;
 
   constructor(
     private pessoaService: PessoaService,
@@ -38,21 +40,44 @@ export class LancamentosCadastroComponent implements OnInit {
     private messageService: MessageService,
     private lancamentoService: LancamentoService,
     private route: ActivatedRoute,
+    private fomrBuilder: FormBuilder,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.configForm();
+
     this.carregaCategorias();
     this.carregaPessoas();
 
     const idLancamento = (this.route.snapshot.params['id']);
-    if(idLancamento) {
+    if (idLancamento) {
       this.carregaLancamento(idLancamento);
     }
   }
 
+  configForm() {
+    this.form = this.fomrBuilder.group({
+      id: [],
+      tipo: ['RECEITA', Validators.required],
+      dataVencimento: [null, Validators.required],
+      dataPagamento: [],
+      descricao: [null, [Validators.required, Validators.minLength(5)]],
+      valor: [null, Validators.required],
+      pessoa: this.fomrBuilder.group({
+        id: [null, Validators.required],
+        nome: []
+      }),
+      categoria: this.fomrBuilder.group({
+        id: [null, Validators.required],
+        nome: []
+      }),
+      observacao: [null]
+    });
+  }
+
   get labelEdicaoLancamento() {
-    return Boolean(this.lancamento.id);
+    return Boolean(this.form.get('id').value);
   }
 
   carregaCategorias() {
@@ -75,16 +100,15 @@ export class LancamentosCadastroComponent implements OnInit {
       (error => this.errorHandler.handle(error));
   }
 
-  salvar(lancamentoForm: NgForm) {
+  salvar() {
     if (this.labelEdicaoLancamento) {
-      //TODO Verificar atualização
-      this.atualizarLancamento(lancamentoForm);
+      this.atualizarLancamento();
     }
-    this.adicionarLancamento(lancamentoForm);
+    this.adicionarLancamento();
   }
 
-  adicionarLancamento(lancamentoForm: NgForm) {
-    this.lancamentoService.adicionar(this.lancamento)
+  adicionarLancamento() {
+    this.lancamentoService.adicionar(this.form.value)
       .subscribe(() => {
         this.messageService.add({ severity: 'success', detail: 'Lancamento adicionado com sucesso!' });
         this.router.navigate(['/lancamentos']);
@@ -93,11 +117,11 @@ export class LancamentosCadastroComponent implements OnInit {
       );
   }
 
-  //TODO Verificar atualização
-  atualizarLancamento(lancamentoForm: NgForm) {
-    this.lancamentoService.atualizar(this.lancamento)
+  atualizarLancamento() {
+    this.lancamentoService.atualizar(this.form.value)
       .subscribe(lancamento => {
-        this.lancamento = lancamento;
+        this.form.patchValue(lancamento);
+        //this.lancamento = lancamento;
         this.messageService.add({ severity: 'success', detail: 'Lancamento adicionado com sucesso!' });
       },
         error => this.errorHandler.handle(error)
@@ -118,18 +142,19 @@ export class LancamentosCadastroComponent implements OnInit {
 
   carregaLancamento(id: number) {
     this.lancamentoService.buscaPorId(id)
-    .subscribe(lancamento => {
-      this.converteStringsParaDatas([lancamento]);
-      this.lancamento = lancamento;
-    },
-    error => this.errorHandler.handle(error)
-    );
+      .subscribe(lancamento => {
+        this.converteStringsParaDatas([lancamento]);
+        this.form.patchValue(lancamento);
+        //this.lancamento = lancamento;
+      },
+        error => this.errorHandler.handle(error)
+      );
   }
 
-  onNovoLancamento(lancamentoForm: NgForm) {
-    lancamentoForm.reset();
+  onNovoLancamento() {
+    this.form.reset();
 
-    setTimeout(function(){
+    setTimeout(function () {
       this.lancamento = new Lancamento();
     }.bind(this), 1);
 
