@@ -1,5 +1,5 @@
 <div class="container">
-    <form #pessoaForm="ngForm" autocomplete="off" (ngSubmit)="salvar(pessoaForm)">
+    <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="form">
 
         <div class="grid">
             <div class="col-12">
@@ -9,76 +9,95 @@
             <div class="col-12 p-fluid">
                 <label>Nome</label>
                 <input pInputText type="text" name="nome"
-                #nome="ngModel" required minlength="3" [(ngModel)]="pessoa.nome">
+                    formControlName="nome">
 
-                <app-messages [control]="nome" error="required"
+                <app-messages [control]="form.get('nome')" error="required"
                 text="Informe o nome"></app-messages>
+                <app-messages [control]="form.get('nome')" error="minlength"
+                    text="Mínimo de {{ form.get('nome').errors?.minlength?.requiredLength }} caracteres">
+                </app-messages>
             </div>
 
-            <div class="col-9 p-fluid">
+            <div class="col-9 p-fluid" formGroupName="endereco">
                 <label>Logradouro</label>
                 <input pInputText type="text" name="logradouro"
-                #logradouro="ngModel" required minlength="3"  [(ngModel)]="pessoa.endereco.logradouro">
+                    formControlName="logradouro">
 
-                <app-messages [control]="logradouro" error="required"
+                <app-messages [control]="form.get('endereco.logradouro')" error="required"
                 text="Informe o logradouro"></app-messages>
+                <app-messages [control]="form.get('endereco.logradouro')" error="minlength"
+                    text="Mínimo de {{ form.get('endereco.logradouro').errors?.minlength?.requiredLength }} caracteres">
+                </app-messages>
             </div>
 
-            <div class="col-3 p-fluid">
+            <div class="col-3 p-fluid" formGroupName="endereco">
                 <label>Número</label>
                 <input pInputText type="text" name="numero"
-                #numero="ngModel" required minlength="1" [(ngModel)]="pessoa.endereco.numero">
+                    formControlName="numero">
 
-                <app-messages [control]="numero" error="required"
+                <app-messages [control]="form.get('endereco.numero')" error="required"
                 text="Informe o numero"></app-messages>
             </div>
 
-            <div class="col-4 p-fluid">
+            <div class="col-4 p-fluid" formGroupName="endereco">
                 <label>Complemento</label>
-                <input pInputText type="text" name="complemento" [(ngModel)]="pessoa.endereco.complemento">
+                <input pInputText type="text" name="complemento"
+                    formControlName="complemento">
             </div>
 
-            <div class="col-4 p-fluid">
+            <div class="col-4 p-fluid" formGroupName="endereco">
                 <label>Bairro</label>
                 <input pInputText type="text" name="bairro"
-                #bairro="ngModel" required minlength="3" [(ngModel)]="pessoa.endereco.bairro">
+                    formControlName="bairro">
 
-                <app-messages [control]="bairro" error="required"
+                <app-messages [control]="form.get('endereco.bairro')" error="required"
                 text="Informe o bairro"></app-messages>
+                <app-messages [control]="form.get('endereco.bairro')" error="minlength"
+                    text="Mínimo de {{ form.get('endereco.bairro').errors?.minlength?.requiredLength }} caracteres">
+                </app-messages>
             </div>
 
-            <div class="col-4 p-fluid">
+            <div class="col-4 p-fluid" formGroupName="endereco">
                 <label>CEP</label>
                 <p-inputMask mask="99.999-999" name="cep"
-                #cep="ngModel" required minlength="8" [(ngModel)]="pessoa.endereco.cep">
+                    formControlName="cep">
                 </p-inputMask>
 
-                <app-messages [control]="cep" error="required"
+                <app-messages [control]="form.get('endereco.cep')" error="required"
                 text="Informe o cep"></app-messages>
+                <app-messages [control]="form.get('endereco.cep')" error="minlength"
+                    text="Mínimo de {{ form.get('endereco.cep').errors?.minlength?.requiredLength }} caracteres">
+                </app-messages>
             </div>
 
-            <div class="col-6 p-fluid">
+            <div class="col-6 p-fluid" formGroupName="endereco">
                 <label>Cidade</label>
                 <input pInputText type="text" name="cidade"
-                #cidade="ngModel" required minlength="3" [(ngModel)]="pessoa.endereco.cidade">
+                    formControlName="cidade">
 
-                <app-messages [control]="cidade" error="required"
+                <app-messages [control]="form.get('endereco.cidade')" error="required"
                 text="Informe a cidade"></app-messages>
+                <app-messages [control]="form.get('endereco.cidade')" error="minlength"
+                    text="Mínimo de {{ form.get('endereco.cidade').errors?.minlength?.requiredLength }} caracteres">
+                </app-messages>
             </div>
 
-            <div class="col-6 p-fluid">
+            <div class="col-6 p-fluid" formGroupName="endereco">
                 <label>Estado</label>
                 <input pInputText type="text" name="estado"
-                #estado="ngModel" required minlength="3" [(ngModel)]="pessoa.endereco.estado">
+                    formControlName="estado">
 
-                <app-messages [control]="estado" error="required"
+                <app-messages [control]="form.get('endereco.estado')" error="required"
                 text="Informe o estado"></app-messages>
+                <app-messages [control]="form.get('endereco.estado')" error="minlength"
+                    text="Mínimo de {{ form.get('endereco.estado').errors?.minlength?.requiredLength }} caracteres">
+                </app-messages>
             </div>
 
             <div class="col-12">
                 <button pButton type="submit" label="Salvar" class="p-button-info"></button>
                 <button pButton type="button" label="Novo" class="p-button-info"
-                    (click)="nova(pessoaForm)"></button>
+                    (click)="nova()"></button>
 
                 <a routerLink="/pessoas" class="p-button-info">Voltar para a pesquisa</a>
             </div>

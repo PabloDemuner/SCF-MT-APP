@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TooltipModule } from 'primeng/tooltip';
@@ -30,6 +30,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
     CommonModule,
     FormsModule,
     PessoasRoutingModule,
+
+    ReactiveFormsModule,
 
     SharedModule,
 

@@ -26,7 +26,6 @@ export class LancamentosCadastroComponent implements OnInit {
   ];
 
   categorias = [];
-
   pessoas = [];
 
   //lancamento: ILancamento = new Lancamento();
@@ -121,7 +120,6 @@ export class LancamentosCadastroComponent implements OnInit {
     this.lancamentoService.atualizar(this.form.value)
       .subscribe(lancamento => {
         this.form.patchValue(lancamento);
-        //this.lancamento = lancamento;
         this.messageService.add({ severity: 'success', detail: 'Lancamento adicionado com sucesso!' });
       },
         error => this.errorHandler.handle(error)
@@ -145,7 +143,6 @@ export class LancamentosCadastroComponent implements OnInit {
       .subscribe(lancamento => {
         this.converteStringsParaDatas([lancamento]);
         this.form.patchValue(lancamento);
-        //this.lancamento = lancamento;
       },
         error => this.errorHandler.handle(error)
       );
