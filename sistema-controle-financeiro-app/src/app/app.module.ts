@@ -9,15 +9,13 @@ import { TabViewModule } from 'primeng/tabview';
 
 import { CoreModule } from './core/core.module';
 import { PessoasModule } from './pessoas/pessoas.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 
 import { AppComponent } from './app.component';
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LoginHomeComponent } from './seguranca/login-home/login-home.component';
 import { SegurancaModule } from './seguranca/seguranca.module';
 
 registerLocaleData(localePt, 'pt-BR');
@@ -40,6 +38,7 @@ registerLocaleData(localePt, 'pt-BR');
     PessoasModule,
     CoreModule,
     SegurancaModule,
+    DashboardModule,
 
     HttpClientModule,
     AppRoutingModule,
