@@ -10,7 +10,9 @@ import { TabViewModule } from 'primeng/tabview';
 import { CoreModule } from './core/core.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { RelatoriosModule } from './relatorios/relatorios.module';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
+
 
 import { AppComponent } from './app.component';
 
@@ -39,6 +41,7 @@ registerLocaleData(localePt, 'pt-BR');
     CoreModule,
     SegurancaModule,
     DashboardModule,
+    RelatoriosModule,
 
     HttpClientModule,
     AppRoutingModule,

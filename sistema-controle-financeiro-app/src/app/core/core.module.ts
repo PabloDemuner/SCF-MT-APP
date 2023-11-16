@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ErrorHandlerService } from './error-handler.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { RelatoriosService } from '../relatorios/relatorios.service';
 import { LancamentoService } from '../lancamentos/lancamento.service';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { PessoaService } from '../pessoas/pessoa.service';
@@ -36,10 +37,12 @@ import { PaginaNaoAutorizadaComponent } from './pagina-nao-autorizada.component'
     ConfirmDialogModule,
   ],
   providers: [
-    DashboardService,
-    LancamentoService,
-    PessoaService,
     AuthService,
+    PessoaService,
+    DashboardService,
+    RelatoriosService,
+    LancamentoService,
+    
 
     MessageService,
     ErrorHandlerService,
