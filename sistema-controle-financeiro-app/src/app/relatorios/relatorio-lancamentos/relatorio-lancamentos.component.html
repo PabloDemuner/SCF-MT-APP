@@ -1,1 +1,24 @@
-<p>relatorio-lancamentos works!</p>
+<div class="container">
+    <div class="grid">
+        <div class="col-12">
+            <h1>Relatório de lançamentos por pessoa</h1>
+        </div>
+
+        <form #form="ngForm" (ngSubmit)="gerarRelatorio()">
+            <div class="col-12">
+                <label class="mr-2">Vencimento</label>
+                <p-calendar class="mr-2" dateFormat="dd/mm/yy" [required]="true" [inputStyle]="{ 'width': '105px'}"
+                    [(ngModel)]="dataInicio" name="dataInicio"></p-calendar>
+
+                <label class="mr-2">até</label>
+
+                <p-calendar dateFormat="dd/mm/yy" [required]="true" [inputStyle]="{ 'width': '105px'}"
+                    [(ngModel)]="dataFim" name="dataFim"></p-calendar>
+            </div>
+
+            <div class="col-12">
+                <button pButton type="submit" label="Gerar Relatorio" [disabled]="form.invalid"></button>
+            </div>
+        </form>
+    </div>
+</div>

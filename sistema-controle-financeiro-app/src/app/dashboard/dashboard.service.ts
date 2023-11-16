@@ -8,8 +8,7 @@ export class DashboardService {
 
   lancamentosUrl = 'http://localhost:8080/lancamentos';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   lancamentosPorCategoria(): Promise<Array<any>> {
     return this.http.get(`${this.lancamentosUrl}/estatisticas/por-categoria`)
