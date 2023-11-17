@@ -20,6 +20,8 @@ import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { NgxCurrencyModule } from 'ngx-currency';
     SelectButtonModule,
     DropdownModule,
     NgxCurrencyModule,
-    InputMaskModule
+    InputMaskModule,
+    PanelModule,
+    DialogModule
   ],
 
   exports: [

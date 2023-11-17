@@ -1,0 +1,72 @@
+<div class="grid">
+    <div class="col-12">
+        <button pButton label="Novo Contato" type="button" icon="fa-plus" class="ui-button-secondary"
+            (click)="criarNovoContato()"></button>
+    </div>
+    <div class="col-12">
+        <p-table [value]="listaContato" [responsive]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th class="col-acoes-header"></th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-contato let-rowIndex>
+                <tr>
+                    <td>{{ contato.nome }}</td>
+                    <td>{{ contato.email }}</td>
+                    <td>{{ contato.telefone }}</td>
+                    <td class="col-acoes">
+                        <button pButton icon="pi pi-pencil" type="button" pTooltip="Editar"
+                            (click)="editarContato(contato, rowIndex)" tooltipPosition="top"></button>
+
+                        <button pButton icon="pi pi-trash" type="button" pTooltip="Excluir"
+                            (click)="excluirContato(rowIndex)" tooltipPosition="top"></button>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="4">
+                        Nenhum contato cadastrado
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog header="{{title}}" modal="modal" [(visible)]="exibirFormNovoContato" *ngIf="listaContato">
+    <form autocomplete="off" (ngSubmit)="adicionarContato(formContatos.value)" [formGroup]="formContatos">
+        <div class="ui-g12 ui-fluid">
+            <label>Nome</label>
+
+            <input pInputText type="text" name="nome" formControlName="nome">
+            <app-messages [control]="formContatos.get('nome')" error="required" text="Informe o nome"></app-messages>
+        </div>
+        <div class="ui-g12 ui-fluid">
+            <label>E-mail</label>
+
+            <input pInputText type="email" name="email" formControlName="email" email>
+            <app-messages [control]="formContatos.get('email')" error="required" text="Informe o E-mail"></app-messages>
+            <app-messages [control]="formContatos.get('email')" error="email"
+                text="Informe um E-mail válido"></app-messages>
+        </div>
+        <div class="ui-g12 ui-fluid">
+            <label>telefone</label>
+
+            <p-inputMask name="telefone" formControlName="telefone" mask="(99) 99999 999?9">
+            </p-inputMask>
+            <app-messages [control]="formContatos.get('telefone')" error="required"
+                text="Informe um telefone"></app-messages>
+        </div>
+
+        <div class="col-12">
+            <button pButton type="submit" label="Salvar" class="p-button-info"></button>
+        </div>
+    </form>
+</p-dialog>

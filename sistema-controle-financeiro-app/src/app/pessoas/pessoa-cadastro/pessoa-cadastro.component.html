@@ -3,7 +3,7 @@
 
         <div class="grid">
             <div class="col-12">
-                <h1>Nova Pessoa</h1>
+                <h1>{{title}}</h1>
             </div>
 
             <div class="col-12 p-fluid">
@@ -88,11 +88,21 @@
                     formControlName="estado">
 
                 <app-messages [control]="form.get('endereco.estado')" error="required"
-                text="Informe o estado"></app-messages>
+                    text="Informe o estado"></app-messages>
                 <app-messages [control]="form.get('endereco.estado')" error="minlength"
                     text="Mínimo de {{ form.get('endereco.estado').errors?.minlength?.requiredLength }} caracteres">
                 </app-messages>
             </div>
+
+            <div class="col-12">
+                <p-panel header="Contatos">
+                    <div class="col-12">
+                        <p-panel header="Lista Contatos">
+                          <app-form-cadastro-contatos [listaContato] = pessoa.contatos></app-form-cadastro-contatos>
+                        </p-panel>
+                      </div>
+                </p-panel>
+              </div>
 
             <div class="col-12">
                 <button pButton type="submit" label="Salvar" class="p-button-info"></button>
@@ -102,7 +112,6 @@
                 <a routerLink="/pessoas" class="p-button-info">Voltar para a pesquisa</a>
             </div>
         </div>
-
     </form>
 
 </div>

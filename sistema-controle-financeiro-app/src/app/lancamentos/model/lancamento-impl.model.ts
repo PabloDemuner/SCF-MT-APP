@@ -1,5 +1,7 @@
 import { ILancamento } from './lancamento.model';
 import { IPessoa } from '../../pessoas/model/pessoa.model';
+import { IContato } from 'src/app/pessoas/model/contato.model';
+
 export class Lancamento implements ILancamento {
     id!: number;
     descricao!: string;
@@ -22,6 +24,7 @@ export class Pessoa implements IPessoa {
     nome!: string;
     endereco = new Endereco();
     ativo = true;
+    contatos = new Array<IContato>();
 }
 
 class Endereco {
