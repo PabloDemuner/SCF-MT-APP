@@ -19,7 +19,6 @@ export class RelatorioLancamentosComponent implements OnInit {
   }
 
   gerarRelatorio() {
-    debugger;
     this.relatorioService.relatoriosLancamentosPorPessoa(this.dataInicio, this.dataFim)
       .then(dadosRelatorio => {
         const url = window.URL.createObjectURL(dadosRelatorio);

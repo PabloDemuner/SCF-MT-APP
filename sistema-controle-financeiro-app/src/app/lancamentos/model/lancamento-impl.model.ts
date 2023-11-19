@@ -12,6 +12,8 @@ export class Lancamento implements ILancamento {
     tipo = 'RECEITA';
     categoria = new Categoria();
     pessoa = new Pessoa();
+    anexo: string;
+    urlAnexo: string;
 }
 
 export class Categoria  {

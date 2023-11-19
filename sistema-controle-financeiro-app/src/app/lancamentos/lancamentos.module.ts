@@ -20,7 +20,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { InputMaskModule } from 'primeng/inputmask';
-import { RouterModule } from '@angular/router';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -49,7 +50,9 @@ import { RouterModule } from '@angular/router';
     SelectButtonModule,
     DropdownModule,
     NgxCurrencyModule,
-    InputMaskModule
+    InputMaskModule,
+    FileUploadModule,
+    ProgressSpinnerModule
   ],
 
   exports: [

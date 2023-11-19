@@ -56,6 +56,28 @@
                 <textarea pInputTextarea rows="3" name="observacao" formControlName="observacao">
                 </textarea>
             </div>
+
+            <div class="col-12 p-fluid" dir="rtl" *ngIf="!form.get('anexo').value">
+                <p-fileUpload name="anexo" mode="basic" auto="true" chooseLabel="Anexar Arquivo"
+                    accept="image/*, application/*" [url]="enviarAnexos"
+                    (onBeforeSend)="forceUploadAnexo($event)"
+                    (onUpload)="uploadAnexo($event)"
+                    (onError)="msgErro($event)"
+                    [hidden]="progressSpinner">
+
+                    <p-progressSpinner [style]="{width: '25px', height: '25px'}"
+                        [hidden]="!progressSpinner"></p-progressSpinner>
+                </p-fileUpload>
+            </div>
+            <div class="col-12 p-fluid" dir="rtl" *ngIf="form.get('anexo').value">
+                <button class="col-3 p-md-3" pButton type="button" class="p-button-danger" icon="pi pi-trash"
+                    pTooltip="Excluir Anexo" tooltipPosition="top"
+                    (click)="removerArquivo()"></button>
+                    
+                <a class="col-12 md-12 p-fluid" target="_blank" pTooltip="Download Anexos" tooltipPosition="top"
+                    [href]="form.get('urlAnexo').value">{{ nomeAnexo }}</a>
+            </div>
+
             <div class="col-12">
                 <button [disabled]="form.invalid" pButton type="submit" label="Salvar" class="p-button-info"></button>
                 <button pButton type="button" label="Novo" class="p-button-info" (click)="onNovoLancamento()"></button>

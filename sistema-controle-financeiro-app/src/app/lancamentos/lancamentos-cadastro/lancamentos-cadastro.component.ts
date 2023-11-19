@@ -25,6 +25,7 @@ export class LancamentosCadastroComponent implements OnInit {
     { label: 'Despesa', value: 'DESPESA' }
   ];
 
+  progressSpinner: boolean;
   categorias = [];
   pessoas = [];
 
@@ -71,7 +72,9 @@ export class LancamentosCadastroComponent implements OnInit {
         id: [null, Validators.required],
         nome: []
       }),
-      observacao: [null]
+      observacao: [null],
+      anexo: [],
+      urlAnexo: []
     });
   }
 
@@ -143,6 +146,11 @@ export class LancamentosCadastroComponent implements OnInit {
       .subscribe(lancamento => {
         this.converteStringsParaDatas([lancamento]);
         this.form.patchValue(lancamento);
+
+        if (this.form.get('urlAnexo')?.value)
+          this.form.patchValue({
+            urlAnexo: this.form.get('urlAnexo')?.value.replace('\\\\', 'https://')
+          });
       },
         error => this.errorHandler.handle(error)
       );
@@ -157,4 +165,44 @@ export class LancamentosCadastroComponent implements OnInit {
 
     this.router.navigate(['/lancamentos/novo']);
   }
+
+  get enviarAnexos() {
+    return this.lancamentoService.uploadAnexo();
+  }
+
+  forceUploadAnexo(event) {
+    event.xhr.setRequestHeader('Authorization', 'Bearer' + localStorage.getItem('token'));
+    this.progressSpinner = true;
+  }
+
+  uploadAnexo(event: any) {
+    const anexo = event.originalEvent.body;
+    this.form.patchValue({
+      anexo: anexo.nome,
+      urlAnexo: anexo.url.replace('\\\\', 'https://')
+    });
+
+    this.progressSpinner = false;
+  }
+
+  get nomeAnexo() {
+    const nomeAnexo = this.form.get('anexo').value;
+    if (nomeAnexo) {
+      return nomeAnexo.substring(nomeAnexo.indexOf('_') + 1, nomeAnexo.length);
+    }
+    return '';
+  }
+
+  msgErro(event) {
+    this.messageService.add({ severity: 'error', detail: 'Erro ao tentar enviar o anexo!' });
+    this.progressSpinner = false;
+  }
+
+  removerArquivo() {
+    this.form.patchValue({
+      anexo: null,
+      urlAnexo: null
+    });
+  }
+  
 }

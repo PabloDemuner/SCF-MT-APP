@@ -69,4 +69,8 @@ export class LancamentoService {
   buscaPorId(id: number): Observable<ILancamento> {
     return this.http.get<ILancamento>(`${this.lancamentosUrl}/${id}`);
   }
+
+  uploadAnexo() {
+    return `${this.lancamentosUrl}/anexo`;
+  }
 }
