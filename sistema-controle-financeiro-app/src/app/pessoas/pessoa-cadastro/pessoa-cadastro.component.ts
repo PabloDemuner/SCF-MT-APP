@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { Pessoa } from 'src/app/lancamentos/model/lancamento-impl.model';
 import { IPessoa } from '../model/pessoa.model';
+import { EnderecoViaCep } from '../model/endereco-viacep.model';
 import { PessoaService } from '../pessoa.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -18,6 +19,8 @@ export class PessoaCadastroComponent implements OnInit {
   title: string;
 
   pessoa: IPessoa = new Pessoa();
+
+  cepEndereco: EnderecoViaCep;
 
   exibirFormNovoContato: boolean;
 
@@ -85,7 +88,7 @@ export class PessoaCadastroComponent implements OnInit {
       contatos: this.pessoa.contatos
     }
     this.pessoa = dadosForm;
-    
+
     this.pessoaService.adicionar(this.pessoa)
       .subscribe(pessoa => {
         this.messageService.add({ severity: 'success', detail: 'Pessoa adicionada com sucesso!' });
@@ -127,6 +130,22 @@ export class PessoaCadastroComponent implements OnInit {
 
   get editando() {
     return Boolean(this.form.get('id').value)
+  }
+
+  pesquisarCep() {
+    this.pessoaService.pesquisarCep(this.form.get('endereco.cep').value)
+      .subscribe(resultado => {
+        console.log(resultado);
+        this.cepEndereco = resultado;
+        this.form.get('endereco.cep').setValue(resultado.cep);
+        this.form.get('endereco.complemento').setValue(resultado.complemento);
+        this.form.get('endereco.bairro').setValue(resultado.bairro);
+        this.form.get('endereco.cidade').setValue(resultado.localidade);
+        this.form.get('endereco.estado').setValue(resultado.uf);
+        this.form.get('endereco.logradouro').setValue(resultado.logradouro);
+      },
+        error => this.errorHandler.handle(error)
+      );
   }
 
 }

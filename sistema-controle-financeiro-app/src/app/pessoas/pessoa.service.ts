@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPessoaFiltro } from './model/pessoa-filtro.model';
 import { IPessoa } from './model/pessoa.model';
+import { EnderecoViaCep } from './model/endereco-viacep.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,6 @@ export class PessoaService {
 
     return this.http.get<IApiResponse<IPessoa>>(`${this.pesquisaPessoaUrl}`, { params });
   }
-
 
   listarTodas(): Observable<IApiResponse<IPessoa>> {
     return this.http.get<IApiResponse<IPessoa>>(this.pesquisaPessoaUrl);
@@ -52,6 +52,10 @@ export class PessoaService {
 
   buscaPorId(id: number): Observable<IPessoa> {
     return this.http.get<IPessoa>(`${this.pesquisaPessoaUrl}/${id}`);
+  }
+
+  pesquisarCep(filtro: string): Observable<EnderecoViaCep> {
+    return this.http.get<EnderecoViaCep>(`${this.pesquisaPessoaUrl}/endereco/${filtro}`);
   }
 
 }

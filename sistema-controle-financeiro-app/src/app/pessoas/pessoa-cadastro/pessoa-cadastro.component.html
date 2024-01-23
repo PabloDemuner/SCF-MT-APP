@@ -8,23 +8,37 @@
 
             <div class="col-12 p-fluid">
                 <label>Nome</label>
-                <input pInputText type="text" name="nome"
-                    formControlName="nome">
+                <input pInputText type="text" name="nome" formControlName="nome">
 
-                <app-messages [control]="form.get('nome')" error="required"
-                text="Informe o nome"></app-messages>
+                <app-messages [control]="form.get('nome')" error="required" text="Informe o nome"></app-messages>
                 <app-messages [control]="form.get('nome')" error="minlength"
                     text="Mínimo de {{ form.get('nome').errors?.minlength?.requiredLength }} caracteres">
                 </app-messages>
             </div>
 
+            <form class="grid" (ngSubmit)="pesquisarCep()" [formGroup]="form">
+                <div class="col-4 p-fluid" style="margin-left:8px" formGroupName="endereco">
+                    <label>CEP</label>
+                    <input pInputText type="text" name="cep" formControlName="cep">
+
+                    <app-messages [control]="form.get('endereco.cep')" error="required"
+                        text="Informe o cep sem pontos ou espaços"></app-messages>
+                    <app-messages [control]="form.get('endereco.cep')" error="minlength"
+                        text="Mínimo de {{ form.get('endereco.cep').errors?.minlength?.requiredLength }} caracteres">
+                    </app-messages>
+                </div>
+
+                <div class="col-6" style="margin-top:18px">
+                    <button pButton type="submit" label="Pesquisar CEP"></button>
+                </div>
+            </form>
+
             <div class="col-9 p-fluid" formGroupName="endereco">
                 <label>Logradouro</label>
-                <input pInputText type="text" name="logradouro"
-                    formControlName="logradouro">
+                <input pInputText type="text" name="logradouro" formControlName="logradouro">
 
                 <app-messages [control]="form.get('endereco.logradouro')" error="required"
-                text="Informe o logradouro"></app-messages>
+                    text="Informe o logradouro"></app-messages>
                 <app-messages [control]="form.get('endereco.logradouro')" error="minlength"
                     text="Mínimo de {{ form.get('endereco.logradouro').errors?.minlength?.requiredLength }} caracteres">
                 </app-messages>
@@ -32,51 +46,36 @@
 
             <div class="col-3 p-fluid" formGroupName="endereco">
                 <label>Número</label>
-                <input pInputText type="text" name="numero"
-                    formControlName="numero">
+                <input pInputText type="text" name="numero" formControlName="numero">
 
                 <app-messages [control]="form.get('endereco.numero')" error="required"
-                text="Informe o numero"></app-messages>
+                    text="Informe o numero"></app-messages>
             </div>
 
             <div class="col-4 p-fluid" formGroupName="endereco">
                 <label>Complemento</label>
-                <input pInputText type="text" name="complemento"
-                    formControlName="complemento">
+                <input pInputText type="text" name="complemento" formControlName="complemento">
             </div>
 
             <div class="col-4 p-fluid" formGroupName="endereco">
                 <label>Bairro</label>
-                <input pInputText type="text" name="bairro"
-                    formControlName="bairro">
+                <input pInputText type="text" name="bairro" formControlName="bairro">
 
                 <app-messages [control]="form.get('endereco.bairro')" error="required"
-                text="Informe o bairro"></app-messages>
+                    text="Informe o bairro"></app-messages>
                 <app-messages [control]="form.get('endereco.bairro')" error="minlength"
                     text="Mínimo de {{ form.get('endereco.bairro').errors?.minlength?.requiredLength }} caracteres">
                 </app-messages>
             </div>
 
-            <div class="col-4 p-fluid" formGroupName="endereco">
-                <label>CEP</label>
-                <p-inputMask mask="99.999-999" name="cep"
-                    formControlName="cep">
-                </p-inputMask>
 
-                <app-messages [control]="form.get('endereco.cep')" error="required"
-                text="Informe o cep"></app-messages>
-                <app-messages [control]="form.get('endereco.cep')" error="minlength"
-                    text="Mínimo de {{ form.get('endereco.cep').errors?.minlength?.requiredLength }} caracteres">
-                </app-messages>
-            </div>
 
             <div class="col-6 p-fluid" formGroupName="endereco">
                 <label>Cidade</label>
-                <input pInputText type="text" name="cidade"
-                    formControlName="cidade">
+                <input pInputText type="text" name="cidade" formControlName="cidade">
 
                 <app-messages [control]="form.get('endereco.cidade')" error="required"
-                text="Informe a cidade"></app-messages>
+                    text="Informe a cidade"></app-messages>
                 <app-messages [control]="form.get('endereco.cidade')" error="minlength"
                     text="Mínimo de {{ form.get('endereco.cidade').errors?.minlength?.requiredLength }} caracteres">
                 </app-messages>
@@ -84,8 +83,7 @@
 
             <div class="col-6 p-fluid" formGroupName="endereco">
                 <label>Estado</label>
-                <input pInputText type="text" name="estado"
-                    formControlName="estado">
+                <input pInputText type="text" name="estado" formControlName="estado">
 
                 <app-messages [control]="form.get('endereco.estado')" error="required"
                     text="Informe o estado"></app-messages>
@@ -98,16 +96,15 @@
                 <p-panel header="Contatos">
                     <div class="col-12">
                         <p-panel header="Lista Contatos">
-                          <app-form-cadastro-contatos [listaContato] = pessoa.contatos></app-form-cadastro-contatos>
+                            <app-form-cadastro-contatos [listaContato]=pessoa.contatos></app-form-cadastro-contatos>
                         </p-panel>
-                      </div>
+                    </div>
                 </p-panel>
-              </div>
+            </div>
 
             <div class="col-12">
                 <button pButton type="submit" label="Salvar" class="p-button-info"></button>
-                <button pButton type="button" label="Novo" class="p-button-info"
-                    (click)="nova()"></button>
+                <button pButton type="button" label="Novo" class="p-button-info" (click)="nova()"></button>
 
                 <a routerLink="/pessoas" class="p-button-info">Voltar para a pesquisa</a>
             </div>
