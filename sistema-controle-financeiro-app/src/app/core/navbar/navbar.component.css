@@ -1,6 +1,5 @@
 .navbar {
     padding: 20px 0 10px;
-    background-color: #1e94d2;
 }
 
 .icon-navbar {
@@ -9,7 +8,7 @@
 
 .navbar-menu {
     position: fixed;
-    top: 0;
+    top: 0%;
     bottom: 0;
     right: 0;
     width: 210px;
@@ -18,7 +17,7 @@
 
     z-index: 9998;
 
-    background-color: #3a3633;
+    background-color: #35333ac2;
 
     list-style: none;
 }
@@ -48,4 +47,11 @@
 
 .navbar-menuitem.ativo {
     background-color: #464541;
+}
+
+.label-navbar {
+    color: #fff;
+    margin-left: 4%;
+    margin-bottom: -1.9% !important;
+    letter-spacing: .5px;
 }

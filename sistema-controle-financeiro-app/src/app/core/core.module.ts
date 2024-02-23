@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { SidebarModule } from  'primeng/sidebar';
+
 import { ErrorHandlerService } from './error-handler.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -27,6 +29,7 @@ import { PaginaNaoAutorizadaComponent } from './pagina-nao-autorizada.component'
     RouterModule,
 
     ToastModule,
+    SidebarModule,
     ConfirmDialogModule,
   ],
 

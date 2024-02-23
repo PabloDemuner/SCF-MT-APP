@@ -7,17 +7,17 @@
           <h1>Login</h1>
         </div>
   
-        <div class="ui-g-12">
+        <div class="ui-g-10 p-fluid">
           <input pInputText type="email" name="usuario" placeholder="E-mail"
             ngModel required #usuario>
         </div>
   
-        <div class="ui-g-12">
+        <div class="ui-g-10 p-fluid" style="margin-top:10px">
           <input pInputText type="password" name="senha" placeholder="Senha"
             ngModel required #senha>
         </div>
   
-        <div class="ui-g-12">
+        <div class="ui-g-12 margin-top-30" style="margin-top:10px">
           <button pButton type="submit" label="Login" [disabled]="!loginForm.valid"
             (click)="login(usuario.value, senha.value); senha.value = '';"></button>
         </div>
